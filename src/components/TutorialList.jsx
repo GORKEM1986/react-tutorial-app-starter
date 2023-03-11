@@ -2,6 +2,7 @@ import { FaEdit } from "react-icons/fa"
 import { AiFillDelete } from "react-icons/ai"
 import axios from "axios"
 import EditTutorial from "./EditTutorial"
+import { useState } from "react"
 // const tutorials = [
 //   {
 //     id: 1,
@@ -16,6 +17,10 @@ import EditTutorial from "./EditTutorial"
 // ]
 
 const TutorialList = ({ tutorials, getTutorials }) => {
+  const [item, setİtem] = useState("")
+  console.log(item)
+
+
   const deleteTutorial = async (id) => {
     const BASE_URL = "https://tutorial-api.fullstack.clarusway.com/tutorials"
     try {
@@ -26,15 +31,15 @@ const TutorialList = ({ tutorials, getTutorials }) => {
     getTutorials()
   }
 
-  const editTutorial = async ({ id, title, description }) => {
-    const BASE_URL = "https://tutorial-api.fullstack.clarusway.com/tutorials"
-    try {
-      await axios.put(`${BASE_URL}/${id}/`, { title, description })
-    } catch (error) {
-      console.log(error)
-    }
-    getTutorials()
-  }
+  // const editTutorial = async ({ id, title, description }) => {
+  //   const BASE_URL = "https://tutorial-api.fullstack.clarusway.com/tutorials"
+  //   try {
+  //     await axios.put(`${BASE_URL}/${id}/`, { title, description })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  //   getTutorials()
+  // }
 
   return (
     <div className="container mt-4">
@@ -64,6 +69,7 @@ const TutorialList = ({ tutorials, getTutorials }) => {
                     className="me-2 text-warning"
                     data-bs-toggle="modal"
                     data-bs-target="#edit-tutor"
+                    onClick={()=>setİtem(item)}
                     // onClick={() =>
                     //   editTutorial({
                     //     id: 502,
@@ -85,7 +91,7 @@ const TutorialList = ({ tutorials, getTutorials }) => {
         </tbody>
       </table>
 
-      <EditTutorial />
+      <EditTutorial getTutorials={getTutorials} item={item} />
     </div>
   )
 }
